@@ -1,0 +1,325 @@
+@use "sass:map";
+
+// @use './variables-dark';
+
+
+
+// Functions
+
+// Color grade
+@function color-grade($color, $weight) {
+      @if($weight ==50) {
+            @return lighten($color, 45%);
+      }
+
+      @if($weight ==100) {
+            @return lighten($color, 40%);
+      }
+
+      @if($weight ==200) {
+            @return lighten($color, 30%);
+      }
+
+      @if($weight ==300) {
+            @return lighten($color, 20%);
+      }
+
+      @if($weight ==400) {
+            @return lighten($color, 10%);
+      }
+
+      @if($weight ==600) {
+            @return darken($color, 10%);
+      }
+
+      @if($weight ==700) {
+            @return darken($color, 20%);
+      }
+
+      @if($weight ==800) {
+            @return darken($color, 30%);
+      }
+
+      @if($weight ==900) {
+            @return darken($color, 40%);
+      }
+
+      @else {
+            @return $color;
+      }
+}
+
+// Bootstrap icons
+$bootstrap-icons-font-src: url("../fonts/bootstrap-icons.woff2") format("woff2"), url("../fonts/bootstrap-icons.woff") format("woff");
+@import "../../../node_modules/bootstrap-icons/font/bootstrap-icons.scss";
+
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "../../../node_modules/bootstrap/scss/functions";
+
+// 2. Include any default variable overrides here
+
+// Colors
+$primary: #001453;
+$secondary: #001453;
+$success: #25B883;
+$danger: #FF4F4F;
+$warning: #FFB21E;
+$info: #56C2DA;
+$gray: #7c7c7d;
+$white: #d4d4d4;
+$black: #333333;
+$purpe: #7b02d7;
+$muted: #d4d4d4bf;
+$bright: #ffffff;
+$cyan: #3cfafa7a;
+
+$body-bg: color-grade($gray, 50);
+$body-color: color-grade($gray, 800);
+$border-color: color-grade($gray, 100);
+
+
+@mixin color-mode($mode: light, $root: false) {
+      @if $color-mode-type =="media-query" {
+            @if $root ==true {
+                  @media (prefers-color-scheme: $mode) {
+                        :root {
+                              @content;
+                        }
+                  }
+            }
+
+            @else {
+                  @media (prefers-color-scheme: $mode) {
+                        @content;
+                  }
+            }
+      }
+
+      @else {
+            [data-bs-theme="#{$mode}"] {
+                  @content;
+            }
+      }
+}
+
+// Font sizes
+$font-size-base: 1rem;
+$h1-font-size: $font-size-base * 2.5; // 40px   
+$h2-font-size: $font-size-base * 2; // 32px
+$h3-font-size: $font-size-base * 1.75; // 28px
+$h4-font-size: $font-size-base * 1.5; // 24px
+$h5-font-size: $font-size-base * 1.25; // 20px
+$h6-font-size: $font-size-base; // 16px
+$h7-font-size: $font-size-base * .875; // 14px
+$h8-font-size: $font-size-base * .75; // 12px
+
+// Spacers
+$spacer: 1rem;
+$spacers: (
+      0: 0,
+      1: $spacer * .25,
+      // 4px
+      2: $spacer * .5,
+      // 8px
+      3: $spacer,
+      // 16px
+      4: $spacer * 1.5,
+      // 24px
+      5: $spacer * 2,
+      // 32px
+      6: $spacer * 3,
+      // 48px
+      7: $spacer * 6 // 96px
+);
+
+$enable-negative-margins: true;
+
+// Container
+$container-max-widths: (
+      sm: 540px,
+      md: 720px,
+      lg: 960px,
+      xl: 1140px,
+      xxl: 1320px,
+      xxxl: 1620px,
+      // 4xl: 2020px
+);
+
+.modal-xxl {
+      max-width: 1320px !important
+}
+
+// Breakpoints
+$grid-breakpoints: (
+      xs: 0,
+      sm: 576px,
+      md: 768px,
+      lg: 992px,
+      xl: 1200px,
+      xxl: 1400px,
+      xxxl: 1920px
+);
+
+// Breadcrumbs
+$breadcrumb-font-size: .875rem;
+$breadcrumb-divider-color: color-grade($gray, 600);
+$breadcrumb-active-color: color-grade($gray, 400);
+$breadcrumb-divider: quote("›");
+
+
+
+// Pagination
+$pagination-color: $primary;
+$pagination-bg: $white;
+$pagination-border-radius: .0.313rem;
+$pagination-border-width: 0;
+$pagination-hover-color: $primary;
+$pagination-hover-bg: color-grade($primary, 50);
+$pagination-disabled-color: color-grade($gray, 200);
+
+$enable-reduced-motion: false;
+
+$min-contrast-ratio: 2.5;
+
+// Font face
+@import "font-face.scss";
+$font-family-base: 'Montserrat', sans-serif;
+
+// 3. Include remainder of required Bootstrap stylesheets
+@import "../../../node_modules/bootstrap/scss/variables";
+
+$glass-gradient: linear-gradient(60deg, rgb(255 255 255 / 16%) 14%, rgba(255, 255, 255, .05) 48%, rgba(255, 255, 255, .05) 73%, rgba(255, 255, 255, .18) 84%);
+
+// 4. Include any default map overrides here
+$theme-colors: (
+      "primary": $primary,
+      "secondary": $secondary,
+      "danger": $danger,
+      "gray": $gray,
+      "success": $success,
+      "warning": $warning,
+      "purple": $purple,
+      "bright": $bright,
+      "cyan": $cyan
+);
+
+// Color palletes attributes
+@mixin color-attribute($attribute) {
+
+      @each $name,
+      $hex in $theme-colors {
+            &-#{$name}-50 {
+                  #{$attribute}: color-grade($hex, 50)
+            }
+
+            &-#{$name}-100 {
+                  #{$attribute}: color-grade($hex, 100)
+            }
+
+            &-#{$name}-200 {
+                  #{$attribute}: color-grade($hex, 200)
+            }
+
+            &-#{$name}-300 {
+                  #{$attribute}: color-grade($hex, 300)
+            }
+
+            &-#{$name}-400 {
+                  #{$attribute}: color-grade($hex, 400)
+            }
+
+            &-#{$name}-600 {
+                  #{$attribute}: color-grade($hex, 600)
+            }
+
+            &-#{$name}-700 {
+                  #{$attribute}: color-grade($hex, 700)
+            }
+
+            &-#{$name}-800 {
+                  #{$attribute}: color-grade($hex, 800)
+            }
+
+            &-#{$name}-900 {
+                  #{$attribute}: color-grade($hex, 900)
+            }
+      }
+}
+
+
+
+// Color utilities
+.bg {
+      @include color-attribute('background-color');
+}
+
+.text {
+      @include color-attribute('color');
+}
+
+// Font sizes
+$font-sizes: (
+      1: $h1-font-size,
+      2: $h2-font-size,
+      3: $h3-font-size,
+      4: $h4-font-size,
+      5: $h5-font-size,
+      6: $h6-font-size,
+      7: $h7-font-size,
+      8: $h8-font-size
+);
+
+// 5. Include remainder of required parts
+
+@import "../../../node_modules/bootstrap/scss/maps";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/root";
+
+// 6. Optionally include any other parts as needed
+@import "../../../node_modules/bootstrap/scss/utilities";
+@import "../../../node_modules/bootstrap/scss/popover";
+@import "../../../node_modules/bootstrap/scss/modal";
+@import "../../../node_modules/bootstrap/scss/reboot";
+@import "../../../node_modules/bootstrap/scss/type";
+@import "../../../node_modules/bootstrap/scss/images";
+@import "../../../node_modules/bootstrap/scss/containers";
+@import "../../../node_modules/bootstrap/scss/carousel";
+@import "../../../node_modules/bootstrap/scss/grid";
+@import "../../../node_modules/bootstrap/scss/helpers";
+@import "../../../node_modules/bootstrap/scss/forms";
+@import "../../../node_modules/bootstrap/scss/buttons";
+@import "../../../node_modules/bootstrap/scss/breadcrumb";
+@import "../../../node_modules/bootstrap/scss/transitions";
+@import "../../../node_modules/bootstrap/scss/card";
+@import "../../../node_modules/bootstrap/scss/tables";
+@import "../../../node_modules/bootstrap/scss/pagination";
+@import "../../../node_modules/bootstrap/scss/nav";
+@import "../../../node_modules/bootstrap/scss/dropdown";
+@import "../../../node_modules/bootstrap/scss/list-group";
+@import "../../../node_modules/bootstrap/scss/badge";
+@import "../../../node_modules/bootstrap/scss/offcanvas";
+@import "../../../node_modules/bootstrap/scss/alert";
+@import "../../../node_modules/bootstrap/scss/progress";
+@import "../../../node_modules/bootstrap/scss/tooltip";
+@import "../../../node_modules/bootstrap/scss/spinners";
+
+// 7. Optionally include utilities API last to generate classes based on the Sass map in `_utilities.scss`
+@import "../../../node_modules/bootstrap/scss/utilities/api";
+
+@import "./navbar";
+@import "./utilities";
+@import "./sidebar";
+
+
+.app-container{
+      min-height: 100vh;
+}
+
+.main-content{
+      padding-top: 56px;
+      min-height: 100vh;
+      height: 100vh;
+      margin-bottom: 0;
+      padding-bottom: 0;
+}
+

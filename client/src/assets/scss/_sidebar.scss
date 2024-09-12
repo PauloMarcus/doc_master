@@ -1,0 +1,52 @@
+// .sidebar{
+//     transition: all 0.3s;
+
+
+// }
+// .collapse {
+  
+//      .nav-link-text {
+//         width: 0;
+//         overflow: hidden;
+//         opacity: 0;
+//         height: 0;
+//         transition: all 0.3s;
+//     }
+// }
+
+.sidebar {
+    width: 250px;
+    transition: width 0.5s ease-in-out;
+  }
+  
+  /* Sidebar colapsada */
+  .sidebar.collapsed {
+    width: 50px;
+    transition: width 0.5s ease-in-out;
+  }
+  
+  /* Esconder o texto suavemente quando a sidebar estiver colapsada */
+  .sidebar.collapsed .nav-link-text {
+    transform: translateX(-100%);
+    width: 0!important;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-wrap: 'nowrap';
+    transition:all 0.8s ease-in-out;
+  }
+  
+  /* Transição suave para o texto */
+  .nav-link-text {
+    transform: translateX(0%);
+
+    transition: all 0.8s ease-in-out;
+    opacity: 1;
+  }
+  
+//   /* Ajustar o ícone quando a sidebar estiver colapsada */
+//   .sidebar.collapsed .nav-link i {
+//     font-size: 24px;
+//     margin-right: 0;
+//   }

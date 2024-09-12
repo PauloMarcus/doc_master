@@ -1,0 +1,32 @@
+@use "sass:map";
+
+$fontFamily: (
+    'Montserrat'     100   'normal'    'Montserrat-Thin',
+    'Montserrat'     100   'italic'    'Montserrat-ThinItalic',
+    'Montserrat'     200   'normal'    'Montserrat-ExtraLight',
+    'Montserrat'     200   'italic'    'Montserrat-ExtraLightItalic',
+    'Montserrat'     300   'normal'    'Montserrat-Light',
+    'Montserrat'     300   'italic'    'Montserrat-LightItalic',
+    'Montserrat'     400   'normal'    'Montserrat-Regular',
+    'Montserrat'     400   'italic'    'Montserrat-Italic',
+    'Montserrat'     500   'normal'    'Montserrat-Medium',
+    'Montserrat'     500   'italic'    'Montserrat-MediumItalic',
+    'Montserrat'     600   'normal'    'Montserrat-SemiBold',
+    'Montserrat'     600   'italic'    'Montserrat-SemiBoldItalic',
+    'Montserrat'     700   'normal'    'Montserrat-Bold',
+    'Montserrat'     700   'italic'    'Montserrat-BoldItalic',
+    'Montserrat'     800   'normal'    'Montserrat-ExtraBold',
+    'Montserrat'     800   'italic'    'Montserrat-ExtraBoldItalic',
+    'Montserrat'     900   'normal'    'Montserrat-Black',
+    'Montserrat'     900   'italic'    'Montserrat-BlackItalic'
+);
+
+@each $name, $weight, $style, $file in $fontFamily {
+    @font-face {
+        font-family: $name;
+        font-weight: $weight;
+        font-style: $style;
+        src: url('../fonts/#{$file}.woff2') format('woff2'),
+                url('../fonts/#{$file}.woff') format('woff');
+    }
+}
