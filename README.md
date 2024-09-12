@@ -83,7 +83,7 @@ DocMaster é uma aplicação de gerenciamento de documentos que permite o upload
 
    ```bash
    cd ../ # volte para o diretório raiz
-   npm run dev
+    node server.js
    ```
 
 4. **Inicie o front-end (React):**
